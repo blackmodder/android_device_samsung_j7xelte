@@ -72,14 +72,14 @@
     </hal>
 
     <!--
-        Fingerprint
+        Gatekeeper
       -->
     <hal format="hidl">
         <name>android.hardware.biometrics.fingerprint</name>
         <transport>hwbinder</transport>
-        <version>2.1</version>
+        <version>1.0</version>
         <interface>
-            <name>IBiometricsFingerprint</name>
+            <name>IGatekeeper</name>
             <instance>default</instance>
         </interface>
     </hal>

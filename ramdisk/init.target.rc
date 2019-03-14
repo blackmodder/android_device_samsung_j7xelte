@@ -1,19 +1,5 @@
-on post-fs-data
-    # Mobicore
-    export MC_AUTH_TOKEN_PATH /efs
-    mkdir /efs/TEE  0770 radio system
-    chmod 0660 /dev/t-base-tui
-    chown system system /dev/t-base-tui
-    start mobicore
-
-    mkdir /data/biometrics 0700 system system
-    restorecon_recursive /data/biometrics
-
-on post-fs
-    # Mobicore
-    setprop sys.mobicoredaemon.enable stopped
-
 on boot
+
 # Permissions for Accelerometer_sensor
     chown system radio /sys/class/sensors/accelerometer_sensor/raw_data
     chown system radio /sys/class/sensors/accelerometer_sensor/calibration
@@ -52,6 +38,7 @@ on boot
     chown system radio /sys/class/camera/rear/rear_caminfo
     chown system radio /sys/class/camera/rear/rear_sensorid
     chown system radio /sys/class/camera/rear/rear_moduleid
+    chown system radio /sys/class/camera/flash/rear_flash
     chown system radio /sys/class/camera/flash/front_flash
     chown system radio /sys/class/camera/front/front_camfw
     chown system radio /sys/class/camera/front/front_camfw_full
@@ -59,15 +46,6 @@ on boot
     chown system radio /sys/class/camera/front/front_camtype
     chown system radio /sys/class/camera/front/front_caminfo
     chown system radio /sys/class/camera/front/front_sensorid
-
-# Permissions for Fingerprint_sensor
-    chown system radio /sys/class/fingerprint/fingerprint/type_check
-    chown system radio /sys/class/fingerprint/fingerprint/name
-    chown system radio /sys/class/fingerprint/fingerprint/vendor
-    chown system radio /sys/class/fingerprint/fingerprint/adm
-
-    chown system system /dev/esfp0
-    chmod 0660 /dev/esfp0
 
 # Permissions for LCD
     chown system radio /sys/class/lcd/panel/lcd_type
@@ -83,7 +61,8 @@ on boot
     chown system radio /sys/class/sensors/proximity_sensor/name
     chown system radio /sys/class/sensors/proximity_sensor/prox_trim
     chown system radio /sys/class/sensors/proximity_sensor/prox_offset_pass
-
+    chown system radio /sys/class/sensors/proximity_sensor/state
+    chown system radio /sys/class/sensors/proximity_sensor/barcode_emul_en
 # Permissions for SVC LED
     chown system system /sys/class/sec/led/led_blink
     chown system system /sys/class/sec/led/led_r
@@ -99,16 +78,26 @@ on boot
     chmod 0660 /sys/class/sec/tsp/input/enabled
 
 # Permissions for Touchkey
+    chown system radio /sys/class/sec/sec_touchkey/brightness
     chown system radio /sys/class/sec/sec_touchkey/touchkey_firm_update
     chown system system /sys/class/sec/sec_touchkey/input/enabled
-
+    chown system radio /sys/class/sec/sec_touchkey/touch_sensitivity
+    chown system radio /sys/class/sec/sec_touchkey/glove_mode
+    chown system radio /sys/class/sec/sec_touchkey/flip_mode
     chmod 0660 /sys/class/sec_touchkey/input/enabled
+
+# Permissions for Light Sensor
+
+chown system radio /sys/class/sensors/light_sensor/lux
 
 # Permission for Vibrator
     chown system system /sys/class/timed_output/vibrator/enable
 
 # Permission for Wifi firmware_path
     chown wifi wifi /sys/module/dhd/parameters/firmware_path
+
+# SSWAP
+    write /proc/sys/vm/swappiness 130
 
 # Permission for Mobicore
     chown radio system /dev/mobicore-user
@@ -125,8 +114,8 @@ on nonencrypted
 on property:vold.decrypt=trigger_restart_framework
     mkdir /data/misc/mcRegistry 0775 system system
 
-service mobicore /system/bin/mcDriverDaemon -r /system/app/FFFFFFFF000000000000000000000001.drbin -r /system/app/mcRegistry/ffffffffd0000000000000000000000a.tlbin -r /system/app/mcRegistry/ffffffffd00000000000000000000016.tlbin
+service sswap /sbin/sswap -s -f 1536
     class core
-    user system
-    group system
-    disabled
+    user root
+    group root
+oneshot

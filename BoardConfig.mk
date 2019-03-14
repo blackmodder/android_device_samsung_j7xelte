@@ -14,12 +14,12 @@
 # limitations under the License.
 #
 
-TARGET_OTA_ASSERT_DEVICE := on7xelte,on7xeltedd,on7xeltekl,on7xeltekk,on7xelteks,on7xelteub,on7xeltezt
+TARGET_OTA_ASSERT_DEVICE := j7xelte
 
 # Inherit from Exynos7870-common
 include device/samsung/exynos7870-common/BoardConfigCommon.mk
 
-LOCAL_PATH := device/samsung/on7xelte
+LOCAL_PATH := device/samsung/j7xelte
 
 # inherit the splitted configs
 -include $(LOCAL_PATH)/board/*.mk
@@ -28,10 +28,10 @@ LOCAL_PATH := device/samsung/on7xelte
 TARGET_INIT_VENDOR_LIB := libinit_sec
 
 # SELinux
-BOARD_SEPOLICY_DIRS += device/samsung/on7xelte/sepolicy
+BOARD_SEPOLICY_DIRS += device/samsung/j7xelte/sepolicy
 
 # Properties
 TARGET_SYSTEM_PROP += $(LOCAL_PATH)/system.prop
 
 # Inherit from the proprietary version
--include vendor/samsung/on7xelte/BoardConfigVendor.mk
+-include vendor/samsung/j7xelte/BoardConfigVendor.mk

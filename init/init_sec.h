@@ -3,50 +3,44 @@
 
 #include <string.h>
 
-#define TOTAL_VARIANTS 6 //Total number of variants
+#define TOTAL_VARIANTS 5 //Total number of variants
 
 typedef struct {
     std::string model;
     std::string codename;
 } variant;
 
-static const variant G610F_model = {
-    .model = "SM-G610F",
-    .codename = "on7xeltedd"
+static const variant J710F_model = {
+    .model = "SM-J710F",
+    .codename = "j7xeltexx"
 };
 
-static const variant G610L_model = {
-    .model = "SM-G610L",
-    .codename = "on7xeltekl"
+static const variant J710FN_model = {
+    .model = "SM-J710FN",
+    .codename = "j7xelte"
 };
 
-static const variant G610K_model = {
-    .model = "SM-G610K",
-    .codename = "on7xeltekk"
+static const variant J710K_model = {
+    .model = "SM-J710K",
+    .codename = "j7xeltekk"
 };
 
-static const variant G610S_model = {
-    .model = "SM-G610S",
-    .codename = "on7xelteks"
+static const variant J710GN_model = {
+    .model = "SM-J710GN",
+    .codename = "j7xeltedx"
 };
 
-static const variant G610M_model = {
-    .model = "SM-G610M",
-    .codename = "on7xelteub"
-};
-
-static const variant G610Y_model = {
-    .model = "SM-G610Y",
-    .codename = "on7xeltezt"
+static const variant J710MN_model = {
+    .model = "SM-J710MN",
+    .codename = "j7xelteub"
 };
 
 static const variant *all_variants[TOTAL_VARIANTS] = {
-    &G610F_model,
-    &G610L_model,
-    &G610K_model,
-    &G610S_model,
-    &G610M_model,
-    &G610Y_model
+    &J710F_model,
+    &J710FN_model,
+    &J710K_model,
+    &J710GN_model,
+    &J710MN_model
 };
 
 #endif // INIT_SEC_H
